@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import {Filter} from "./components/Filter"
+import { AddPerson } from './components/AddPerson'
+import { Persons } from './components/Persons'
 
 const contacts = [
   { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -38,29 +41,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter :
-        <input type="text" value={filterValue} onChange={onChangeFilterVlue} />
-      </div>
-      <form onSubmit={onSubmit}>
-        <div>
-          <div>
-          name: <input  value={newName} onChange={onChangeName}/>
-          </div>
-          <div>
-          number: <input type="text" onChange={onChangeNumber} value={newNumber} />
-          </div>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Filter inputValue={filterValue} onChangeInput={onChangeFilterVlue} />
+      <h2>Add new person</h2>
+      <AddPerson onSubmit={onSubmit} nameValue={newName} onChangeName={onChangeName} numberValue={newNumber} onChangeNumber={onChangeNumber} />
       <h2>Numbers</h2>
-       {
-        filtered.map(person => (
-          <p key={person.name}> {person.name} : {person.number} </p>
-        ))
-       }
+       <Persons persons={filtered} />
     </div>
   )
 }
