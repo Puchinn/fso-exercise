@@ -5,14 +5,17 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
 
+  console.log(persons)
   const [newName, setNewName] = useState('')
 
   const onChange = (event)=> {
     setNewName(event.target.value)
   }
-
   const onSubmit = (event)=>{
     event.preventDefault()
+    if(persons.some(person => person.name === newName)){
+      return alert(`${newName} is already added to phonebook`)
+    }
     setPersons([...persons,{name:newName}])
   }
 
