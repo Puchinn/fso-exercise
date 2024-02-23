@@ -42,6 +42,15 @@ const App = () => {
     });
   };
 
+  const deletePerson = (person) => {
+    const wantDelete = window.confirm(`want to delete ${person.name} ?`);
+    if (wantDelete) {
+      services.deletePersonById(person.id).then(() => {
+        setPersons(persons.filter((per) => per.id !== person.id));
+      });
+    }
+  };
+
   const filtered = persons.filter((person) =>
     person.name.includes(filterValue)
   );
@@ -59,7 +68,7 @@ const App = () => {
         onChangeNumber={onChangeNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={filtered} />
+      <Persons persons={filtered} deletePerson={deletePerson} />
     </div>
   );
 };

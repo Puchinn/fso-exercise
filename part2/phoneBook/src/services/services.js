@@ -12,4 +12,9 @@ const postPerson = async (person) => {
   return data;
 };
 
-export default { getPersons, postPerson };
+const deletePersonById = async (id) => {
+  const { data } = await axios.delete(url + "/persons/" + id);
+  return data;
+};
+
+export default { getPersons, postPerson, deletePersonById };

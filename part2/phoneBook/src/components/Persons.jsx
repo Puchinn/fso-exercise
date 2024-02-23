@@ -1,13 +1,14 @@
-function Persons({persons}){
+function Persons({ persons, deletePerson }) {
   return (
     <div>
-      {
-        persons.map(person => (
-          <p key={person.name}> {person.name} : {person.number} </p>
-        ))
-       }
+      {persons.map((person) => (
+        <p key={person.name}>
+          {person.name} : {person.number}{" "}
+          <button onClick={() => deletePerson(person)}>delete</button>
+        </p>
+      ))}
     </div>
-  )
+  );
 }
 
-export {Persons}
+export { Persons };
