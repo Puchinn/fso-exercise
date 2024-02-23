@@ -30,16 +30,30 @@ const App = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (persons.some((person) => person.name === newName)) {
-      return alert(`${newName} is already added to phonebook`);
+    const alreadyExists = persons.find((person) => person.name === newName);
+
+    if (!alreadyExists) {
+      const person = {
+        name: newName,
+        number: newNumber,
+      };
+      return services.postPerson(person).then((data) => {
+        setPersons(persons.concat(data));
+      });
     }
-    const person = {
-      name: newName,
-      number: newNumber,
-    };
-    services.postPerson(person).then((data) => {
-      setPersons(persons.concat(data));
-    });
+    const wantReplace = confirm(
+      `${newName} is already added to phonebook, replace the older number with a new one?`
+    );
+
+    if (wantReplace) {
+      return services
+        .updatePerson({ ...alreadyExists, number: newNumber })
+        .then((data) => {
+          setPersons(
+            persons.map((person) => (person.id === data.id ? data : person))
+          );
+        });
+    }
   };
 
   const deletePerson = (person) => {
