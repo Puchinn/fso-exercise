@@ -33,7 +33,14 @@ const App = () => {
     if (persons.some((person) => person.name === newName)) {
       return alert(`${newName} is already added to phonebook`);
     }
-    setPersons([...persons, { name: newName, number: newNumber }]);
+
+    const person = {
+      name: newName,
+      number: newNumber,
+    };
+    axios.post("http://localhost:3001/persons", person).then(({ data }) => {
+      setPersons([...persons, data]);
+    });
   };
 
   const filtered = persons.filter((person) =>
