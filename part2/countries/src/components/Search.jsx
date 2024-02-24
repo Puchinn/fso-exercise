@@ -5,7 +5,7 @@ function Search({ inputValue, setInputValue }) {
 
   return (
     <div>
-      <h1>Search:</h1>
+      <h3>Search:</h3>
       <input type="text" value={inputValue} onChange={onChange} />
     </div>
   );
