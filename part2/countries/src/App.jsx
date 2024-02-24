@@ -20,6 +20,10 @@ function App() {
     }
   }, []);
 
+  const show = (name) => {
+    setSearch(name);
+  };
+
   const filteredData = data.filter((country) =>
     country.name.common.toLowerCase().includes(search.toLowerCase())
   );
@@ -38,7 +42,10 @@ function App() {
         dataLength <= 10 &&
         dataLength > 1 &&
         filteredData.map((data) => (
-          <p key={data.name.common}>{data.name.common}</p>
+          <p key={data.name.common}>
+            {data.name.common}{" "}
+            <button onClick={() => show(data.name.common)}>show</button>
+          </p>
         ))}
     </div>
   );
