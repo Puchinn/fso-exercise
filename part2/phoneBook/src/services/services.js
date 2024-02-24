@@ -3,23 +3,39 @@ import axios from "axios";
 const url = "http://localhost:3001";
 
 const getPersons = async () => {
-  const { data } = await axios.get(`${url}/persons`);
-  return data;
+  try {
+    const { data } = await axios.get(`${url}/persons`);
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
 
 const postPerson = async (person) => {
-  const { data } = await axios.post(`${url}/persons`, person);
-  return data;
+  try {
+    const { data } = await axios.post(`${url}/persons`, person);
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
 
 const updatePerson = async (person) => {
-  const { data } = await axios.put(`${url}/persons/${person.id}`, person);
-  return data;
+  try {
+    const { data } = await axios.put(`${url}/persons/${person.id}`, person);
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
 
 const deletePersonById = async (id) => {
-  const { data } = await axios.delete(`${url}/persons/${id}`);
-  return data;
+  try {
+    const { data } = await axios.delete(`${url}/persons/${id}`);
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
 
 export default { getPersons, postPerson, deletePersonById, updatePerson };
