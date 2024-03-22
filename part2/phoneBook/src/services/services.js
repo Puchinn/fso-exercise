@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const url = "http://localhost:3001";
-
 const getPersons = async () => {
   try {
-    const { data } = await axios.get(`${url}/persons`);
+    const { data } = await axios.get(`/api/persons`);
     return data;
   } catch (err) {
     throw new Error(err.message);
@@ -13,7 +11,7 @@ const getPersons = async () => {
 
 const postPerson = async (person) => {
   try {
-    const { data } = await axios.post(`${url}/persons`, person);
+    const { data } = await axios.post(`/api/persons`, person);
     return data;
   } catch (err) {
     throw new Error(err.message);
@@ -22,7 +20,7 @@ const postPerson = async (person) => {
 
 const updatePerson = async (person) => {
   try {
-    const { data } = await axios.put(`${url}/persons/${person.id}`, person);
+    const { data } = await axios.put(`/api/persons/${person.id}`, person);
     return data;
   } catch (err) {
     throw new Error(err.message);
@@ -31,7 +29,7 @@ const updatePerson = async (person) => {
 
 const deletePersonById = async (id) => {
   try {
-    const { data } = await axios.delete(`${url}/persons/${id}`);
+    const { data } = await axios.delete(`/api/persons/${id}`);
     return data;
   } catch (err) {
     throw new Error(err.message);
