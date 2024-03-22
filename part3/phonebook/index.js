@@ -1,6 +1,7 @@
 import expresss from "express";
 import morgan from "morgan";
 import data from "./data.js";
+import cors from "cors";
 
 let phonebook = [...data];
 
@@ -12,6 +13,7 @@ app.use(expresss.json());
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
+app.use(cors());
 
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
