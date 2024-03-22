@@ -1,4 +1,5 @@
 import expresss from "express";
+import morgan from "morgan";
 import data from "./data.js";
 
 let phonebook = [...data];
@@ -6,6 +7,7 @@ let phonebook = [...data];
 const app = expresss();
 
 app.use(expresss.json());
+app.use(morgan("tiny"));
 
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
