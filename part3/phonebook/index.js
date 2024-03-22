@@ -5,6 +5,8 @@ let phonebook = [...data];
 
 const app = expresss();
 
+app.use(expresss.json());
+
 app.get("/api/persons", (req, res) => {
   res.json(phonebook);
 });
@@ -25,6 +27,23 @@ app.get("/api/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+app.post("/api/persons", (req, res) => {
+  const { name, number } = req.body;
+
+  if (!name || !number) {
+    return res.status(400).json({
+      error: "name or number missing",
+    });
+  }
+  const person = {
+    id: Math.floor(Math.random() * 1000),
+    name,
+    number,
+  };
+  phonebook = phonebook.concat(person);
+  res.json(person);
 });
 
 app.delete("/api/persons/:id", (req, res) => {
