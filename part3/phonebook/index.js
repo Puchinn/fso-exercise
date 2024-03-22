@@ -37,6 +37,13 @@ app.post("/api/persons", (req, res) => {
       error: "name or number missing",
     });
   }
+
+  if (phonebook.some((person) => person.name === name)) {
+    return res.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
   const person = {
     id: Math.floor(Math.random() * 1000),
     name,
