@@ -1,15 +1,17 @@
 import expresss from "express";
 import data from "./data.js";
 
+let phonebook = [...data];
+
 const app = expresss();
 
 app.get("/api/persons", (req, res) => {
-  res.json(data);
+  res.json(phonebook);
 });
 
 app.get("/info", (req, res) => {
   res.send(
-    `<h1>Phonebook has info for ${data.length} people</h1>
+    `<h1>Phonebook has info for ${phonebook.length} people</h1>
     <h2>${new Date()}</h2>`
   );
   res.end();
@@ -17,12 +19,18 @@ app.get("/info", (req, res) => {
 
 app.get("/api/persons/:id", (req, res) => {
   const id = Number(req.params.id);
-  const person = data.find((person) => person.id === id);
+  const person = phonebook.find((person) => person.id === id);
   if (person) {
     res.json(person);
   } else {
     res.status(404).end();
   }
+});
+
+app.delete("/api/persons/:id", (req, res) => {
+  const id = Number(req.params.id);
+  phonebook = phonebook.filter((person) => person.id !== id);
+  res.status(204).end();
 });
 
 const PORT = process.env.PORT || 5000;
