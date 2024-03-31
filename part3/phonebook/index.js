@@ -62,9 +62,13 @@ mongoose
     });
 
     app.delete("/api/persons/:id", async (req, res) => {
-      const id = Number(req.params.id);
-      await Person.findByIdAndRemove(id);
-      res.status(204).end();
+      const id = req.params.id;
+      try {
+        await Person.findByIdAndDelete(id);
+        res.status(204).end();
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
     });
 
     const PORT = config.port || 5000;
