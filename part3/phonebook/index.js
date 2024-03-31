@@ -43,7 +43,7 @@ mongoose
       }
     });
 
-    app.post("/api/persons", (req, res) => {
+    app.post("/api/persons", async (req, res) => {
       const { name, number } = req.body;
 
       if (!name || !number) {
@@ -52,28 +52,22 @@ mongoose
         });
       }
 
-      if (phonebook.some((person) => person.name === name)) {
-        return res.status(400).json({
-          error: "name must be unique",
-        });
+      try {
+        const person = new Person({ name, number });
+        await person.save();
+        res.json(person);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
       }
-
-      const person = {
-        id: Math.floor(Math.random() * 1000),
-        name,
-        number,
-      };
-      phonebook = phonebook.concat(person);
-      res.json(person);
     });
 
-    app.delete("/api/persons/:id", (req, res) => {
+    app.delete("/api/persons/:id", async (req, res) => {
       const id = Number(req.params.id);
-      phonebook = phonebook.filter((person) => person.id !== id);
+      await Person.findByIdAndRemove(id);
       res.status(204).end();
     });
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = config.port || 5000;
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
