@@ -63,6 +63,22 @@ mongoose
       }
     });
 
+    app.put("/api/persons/:id", async (req, res) => {
+      const id = req.params.id;
+      const { name, number } = req.body;
+
+      try {
+        const person = await Person.findByIdAndUpdate(
+          id,
+          { name, number },
+          { new: true, runValidators: true, context: "query" }
+        );
+        res.json(person);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    });
+
     app.delete("/api/persons/:id", async (req, res) => {
       const id = req.params.id;
       try {
