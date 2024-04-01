@@ -5,7 +5,7 @@ const getPersons = async () => {
     const { data } = await axios.get(`/api/persons`);
     return data;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.error);
   }
 };
 
@@ -14,7 +14,7 @@ const postPerson = async (person) => {
     const { data } = await axios.post(`/api/persons`, person);
     return data;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.error);
   }
 };
 
@@ -23,7 +23,7 @@ const updatePerson = async (person) => {
     const { data } = await axios.put(`/api/persons/${person.id}`, person);
     return data;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.error);
   }
 };
 
@@ -32,7 +32,7 @@ const deletePersonById = async (id) => {
     const { data } = await axios.delete(`/api/persons/${id}`);
     return data;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.error);
   }
 };
 

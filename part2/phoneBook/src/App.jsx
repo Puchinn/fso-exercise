@@ -50,28 +50,28 @@ const App = () => {
         const data = await services.postPerson(person);
         setPersons(persons.concat(data));
         showNotification({ text: `added ${data.name}`, error: false });
-        return;
       } catch (error) {
         showNotification({ text: error.message, error: true });
       }
-    }
-    const wantReplace = confirm(
-      `${newName} is already added to phonebook, replace the older number with a new one?`
-    );
+    } else {
+      const wantReplace = confirm(
+        `${newName} is already added to phonebook, replace the older number with a new one?`
+      );
 
-    if (wantReplace) {
-      try {
-        const data = await services.updatePerson({
-          ...alreadyExists,
-          number: newNumber,
-        });
-        setPersons(
-          persons.map((person) => (person.id === data.id ? data : person))
-        );
-        showNotification({ text: `updated ${data.name}`, error: false });
-        return;
-      } catch (error) {
-        showNotification({ text: error.message, error: true });
+      if (wantReplace) {
+        try {
+          const data = await services.updatePerson({
+            ...alreadyExists,
+            number: newNumber,
+          });
+          setPersons(
+            persons.map((person) => (person.id === data.id ? data : person))
+          );
+          showNotification({ text: `updated ${data.name}`, error: false });
+          return;
+        } catch (error) {
+          showNotification({ text: error.message, error: true });
+        }
       }
     }
   };
