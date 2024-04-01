@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { Person } from "./models.js";
 import config from "./config.js";
+import { errorHanddling } from "./middlewares.js";
 
 const app = expresss();
 
@@ -15,6 +16,7 @@ app.use(
 );
 app.use(cors());
 app.use(expresss.static("dist"));
+app.use(errorHanddling);
 
 mongoose
   .connect(config.mongodb)
