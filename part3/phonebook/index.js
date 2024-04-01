@@ -36,7 +36,7 @@ mongoose
     });
 
     app.get("/api/persons/:id", async (req, res) => {
-      const id = Number(req.params.id);
+      const id = req.params.id;
       const person = await Person.findById(id);
       if (person) {
         res.json(person);
