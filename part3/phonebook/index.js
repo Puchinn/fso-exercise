@@ -16,7 +16,6 @@ app.use(
 );
 app.use(cors());
 app.use(expresss.static("dist"));
-app.use(errorHanddling);
 
 mongoose
   .connect(config.mongodb)
@@ -89,7 +88,9 @@ mongoose
       }
     });
 
-    const PORT = config.port || 5000;
+    app.use(errorHanddling);
+
+    const PORT = config.port;
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
